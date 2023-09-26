@@ -12,7 +12,8 @@ class Task extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'title'
+        'title',
+        'is_done'
     ];
 
     protected $casts=[
@@ -22,13 +23,4 @@ class Task extends Model
     protected  $hidden=[
         'updated_at'
     ];
-    protected static function rules(): array
-    {
-        return (
-        [
-            'title' => 'required|max:255',
-        ]
-
-        );
-    }
 }
