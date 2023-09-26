@@ -14,7 +14,7 @@ class TaskController extends Controller
 {
     public  function index(Request $request){
 
-        return new TaskCollection(Task::all());
+        return new TaskCollection(Task::paginate());
 
     }
     public  function show(Request $request ,Task $task){
@@ -41,6 +41,12 @@ class TaskController extends Controller
 
         return new TaskResource($task);
 
+    }
+
+    public function destroy (Request $request ,Task $task)
+    {
+        $task->delete();
+        return response()->noContent();
     }
 
 }
