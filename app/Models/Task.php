@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static create(array $validated)
@@ -24,4 +25,9 @@ class Task extends Model
     protected  $hidden=[
         'updated_at'
     ];
+
+    public function creator():BelongsTo
+    {
+        return $this->belongsTo(User::class,'creator_id');
+    }
 }
