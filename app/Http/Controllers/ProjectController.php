@@ -16,6 +16,12 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class,'project');
+    }
+
     public function index(Request $request)
     {
         $projects=QueryBuilder::for(Project::class)
