@@ -35,9 +35,14 @@ class Task extends Model
 
     public static function booted(): void
     {
-        static::addGlobalScope('creator',static fn($builder)
-        => $builder->where('creator_id', Auth::id()));
+        static::addGlobalScope('member', function ($builder) {
+            $builder->where(function ($query) {
+                $query->where('creator_id', Auth::id())
+                    ->orWhereIn('project_id', Auth::user()->memberships->pluck('id'));
+            });
+        });
     }
+
 
     public function project():BelongsTo
     {
