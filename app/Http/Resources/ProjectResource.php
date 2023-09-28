@@ -6,6 +6,9 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @method load(string $string)
+ */
 class ProjectResource extends JsonResource
 {
     /**
@@ -18,7 +21,8 @@ class ProjectResource extends JsonResource
         return [
             'id'=>$this->id,
             'title'=>$this->title,
-            'tasks'=>TaskResource::collection($this->tasks)
+            //تقوم بجلبه ولاكن عند التحميل فقط في الكنترول
+            'tasks'=>TaskResource::collection($this->whenLoaded('tasks'))
         ];
     }
 }
