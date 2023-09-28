@@ -26,11 +26,10 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title'=>'sometimes|required|max:255',
             'is_done'=>'sometimes|boolean',
-            //لا كي يقوم الشخص صاحب فقط بأنشاء المهام
+// والتعديل  علييه كي يقوم الشخص صاحب فقط بأنشاء المهام
             'project_id' => [
                 'nullable',
-                Rule::exists('projects', 'id')
-                    ->where(fn($query) => $query->where('creator_id', Auth::id()))
+                Rule::in(Auth::user()->memberships->pluck('id'))
             ],
         ];
     }

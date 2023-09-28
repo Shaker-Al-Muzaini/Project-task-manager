@@ -31,12 +31,12 @@ class Project extends Model
     {
         return  $this->belongsTo(User::class,'creator_id');
     }
-    //كانت تقوم بعرض المشاريع فقط للذي انشها
-//    public static function booted(): void
-//    {
-//        static::addGlobalScope('creator',static fn($builder)
-//        => $builder->where('creator_id', Auth::id()));
-//    }
+//  تقوم بعرض المشاريع فقط للذي انشها وايضاالاعظاء
+    public static function booted(): void
+    {
+        static::addGlobalScope('member',static fn($builder)
+       => $builder->whereRelation('members','user_id',Auth::id()));
+    }
 
     public function members():BelongsToMany
     {
